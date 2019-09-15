@@ -1,0 +1,13 @@
+PADRÃO DE PROJETO DAO
+
+No pacote .view será adicionado as telas que interagem com o usuário, como a login,
+cadastro etc.
+
+No pacote .images será adicionado os ícones utilizados no nosso sistema.
+
+No pacote .model serão armazenadas as classes com os dados que serão preenchidos
+nas telas da camada .view. A camada model receberá esses dados e repassará ao DAO
+em forma de objetos a serem enviados ao BD.
+
+No pacote .dao estarão as classes responsáveis pelos comandos SQL (CRUD) que receberão
+os objetos repassados pelo model para serem persistidos no banco de dados.
