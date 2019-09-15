@@ -4,7 +4,10 @@ import br.com.controle_estoque.jdbc.ConnectionFactory;
 import br.com.controle_estoque.model.Clientes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -57,7 +60,7 @@ public class ClientesDAO {
             stmt.close();
             
             //Exibe um aviso de cadastrado com sucesso:
-            JOptionPane.showMessageDialog(null, "Cadastrado realizado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
             
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
@@ -75,4 +78,46 @@ public class ClientesDAO {
         
     }
     
+    //Método listarTodosOsClientes:
+    public List<Clientes> listarClientes(){
+        try {
+            //1º Criar a lista:
+            List<Clientes> lista = new ArrayList<>();
+            
+            //2º Criar query sql e executar:
+            String sql = "SELECT * FROM tb_clientes";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            //Todo comando select salva o resultado da consulta no BD numa classe
+            //chamada ResultSet, ela que utilizaremos para adicionar os itens à lista:
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Clientes obj = new Clientes();
+                obj.setId(rs.getInt("id"));
+                obj.setNome(rs.getString("nome"));
+                obj.setRg(rs.getString("rg"));
+                obj.setCpf(rs.getString("cpf"));
+                obj.setEmail(rs.getString("email"));
+                obj.setTelefone(rs.getString("telefone"));
+                obj.setCelular(rs.getString("celular"));
+                obj.setCep(rs.getString("cep"));
+                obj.setEndereco(rs.getString("endereco"));
+                obj.setEnderecoNumero(rs.getInt("numero"));
+                obj.setComplemento(rs.getString("complemento"));
+                obj.setBairro(rs.getString("bairro"));
+                obj.setCidade(rs.getString("cidade"));
+                obj.setUf(rs.getString("estado"));
+                
+                lista.add(obj);
+            }
+            
+            return lista;
+            
+        } catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(null, "Erro: " + e);
+            return null;
+        }
+    } 
 }
