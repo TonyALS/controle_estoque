@@ -11,6 +11,7 @@ public class Clientes {
     private int id;
     private String nome; 
     private String rg; 
+    private String cpf;
     private String email; 
     private String telefone; 
     private String celular; 
@@ -45,6 +46,14 @@ public class Clientes {
 
     public void setRg(String rg) {
         this.rg = rg;
+    }
+    
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getEmail() {
