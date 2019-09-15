@@ -8,7 +8,7 @@ import java.sql.DriverManager;
  */
 public class ConnectionFactory {
     
-    private String caminho_nomeBd = "jdbc:mysql://127.0.0.1/bdestoque";
+    private String caminho_nomeBd = "jdbc:mysql://127.0.0.1/bdvendas";
     private String usuario = "usuariocurso";
     private String senha = "123";
     
