@@ -5,6 +5,9 @@ package br.com.controle_estoque.model;
  */
 public class Clientes {
     
+    //Esta classe receberá os dados da camada .view e repassará em forma de objeto
+    //para a classe ClientesDAO persistir no banco de dados.
+    
     private int id;
     private String nome; 
     private String rg; 
