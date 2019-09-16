@@ -119,7 +119,7 @@ public class Frmcliente extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 204));
+        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
@@ -471,6 +471,11 @@ public class Frmcliente extends javax.swing.JFrame {
         ));
         tabelaClientes.setGridColor(new java.awt.Color(255, 255, 255));
         tabelaClientes.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tabelaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaClientes);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -645,17 +650,71 @@ public class Frmcliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        // TODO add your handling code here:
+        // Botão editar:
+        Clientes obj = new Clientes();
+        obj.setNome(txtNome.getText());
+        obj.setRg(txtRg.getText());
+        obj.setCpf(txtCpf.getText());
+        obj.setEmail(txtEmail.getText());
+        obj.setTelefone(txtFixo.getText());
+        obj.setCelular(txtCel.getText());
+        obj.setCep(txtCep.getText());
+        obj.setEndereco(txtEnd.getText());
+        obj.setEnderecoNumero(Integer.parseInt(txtNumero.getText()));
+        obj.setComplemento(txtComplemento.getText());
+        obj.setBairro(txtBairro.getText());
+        obj.setCidade(txtCidade.getText());
+        obj.setUf(cbUf.getSelectedItem().toString());
+        
+        obj.setId(Integer.parseInt(txtCodigo.getText()));
+        
+        ClientesDAO dao = new ClientesDAO();
+        
+        dao.alterarCliente(obj);
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        // TODO add your handling code here:
+        // Botão excluir:
+        Clientes obj = new Clientes();
+        
+        obj.setId(Integer.parseInt(txtCodigo.getText()));
+        
+        ClientesDAO dao = new ClientesDAO();
+        
+        dao.excluirCliente(obj);
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         //Carrega a lista:
         listarTabela();    
     }//GEN-LAST:event_formWindowActivated
+
+    private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
+        //O painel de abas funciona com índices, onde cada aba possui o seu começando
+        //pelo '0'. Vamos configurar um comando para ao acontecer o evento de clique
+        //o sistema automaticamente ir para a aba de índice 0:
+        jTabbedPane1.setSelectedIndex(0);
+        
+        //Passa o valor da coluna código de jTabbedPane1 (tabela de consulta clientes) para
+        //o textfield txtCodigo da tela de cadastro. Os parâmetros de tabelaClientes.getValueAt()
+        //são linha e coluna. No caso colocamos a linha como sendo a selecionada pelo usuário e a coluna
+        //é igual a 0 pois no índice de colunas da tabela código é a n° 0:
+        txtCodigo.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 0).toString());
+        txtNome.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 1).toString());
+        txtRg.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 2).toString());
+        txtCpf.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 3).toString());
+        txtEmail.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 4).toString());
+        txtFixo.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 5).toString());
+        txtCel.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 6).toString());
+        txtCep.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 7).toString());
+        txtEnd.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 8).toString());
+        txtNumero.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 9).toString());
+        txtComplemento.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 10).toString());
+        txtBairro.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 11).toString());
+        txtCidade.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 12).toString());
+        cbUf.setSelectedItem(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 13).toString());
+        
+    }//GEN-LAST:event_tabelaClientesMouseClicked
 
     /**
      * @param args the command line arguments

@@ -69,13 +69,74 @@ public class ClientesDAO {
     }
     
     //Método alterarCliente:
-    public void alterarCliente(){
+    public void alterarCliente(Clientes obj){
         
+         try {
+            
+            //1º Passo: Criar a query SQL:
+            String sql = "UPDATE tb_clientes SET nome=?, rg=?, cpf=?, email=?, telefone=?,"
+                    + " celular=?, cep=?, endereco=?, numero=?, complemento=?,"
+                    + " bairro=?, cidade=?, estado=? WHERE id=?";
+            
+            //2º Passo: Organizar a query sql:
+            
+            //Classe PreparedStatement é responsável por tratar os comandos sql:
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, obj.getNome());
+            stmt.setString(2, obj.getRg());
+            stmt.setString(3, obj.getCpf());
+            stmt.setString(4, obj.getEmail());
+            stmt.setString(5, obj.getTelefone());
+            stmt.setString(6, obj.getCelular());
+            stmt.setString(7, obj.getCep());
+            stmt.setString(8, obj.getEndereco());
+            stmt.setInt(9, obj.getEnderecoNumero());
+            stmt.setString(10, obj.getComplemento());
+            stmt.setString(11, obj.getBairro());
+            stmt.setString(12, obj.getCidade());
+            stmt.setString(13, obj.getUf());
+            stmt.setInt(14, obj.getId());
+            
+            //3º Executar o comando SQL:
+            stmt.execute();
+            //Fecha a conexão com o banco de dados:
+            stmt.close();
+            
+            //Exibe um aviso de alterado com sucesso:
+            JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar: " + e);
+            
+        }    
     }
     
     //Método excluirCliente:
-    public void excluirCliente(){
+    public void excluirCliente(Clientes obj){
         
+         try {
+            
+            //1º Passo: Criar a query SQL:
+            String sql = "DELETE FROM tb_clientes WHERE id = ?";
+            
+            //2º Passo: Conectar com o banco de dados e organizar a query sql:
+            
+            //Classe PreparedStatement é responsável por tratar os comandos sql:
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, obj.getId());
+            
+            //3º Executar o comando SQL:
+            stmt.execute();
+            //Fecha a conexão com o banco de dados:
+            stmt.close();
+            
+            //Exibe um aviso de excluído com sucesso:
+            JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + e);
+            
+        }  
     }
     
     //Método listarTodosOsClientes:
