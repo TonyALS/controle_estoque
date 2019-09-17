@@ -8,6 +8,7 @@ package br.com.controle_estoque.view;
 import br.com.controle_estoque.dao.ClientesDAO;
 import br.com.controle_estoque.model.Clientes;
 import br.com.controle_estoque.model.Utilitarios;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,25 +17,24 @@ import javax.swing.table.DefaultTableModel;
  * @author Tony
  */
 public class Frmcliente extends javax.swing.JFrame {
-    
+
     //Método listar na tabela:
-    
-    public void listarTabela(){
-        
+    public void listarTabela() {
+
         ClientesDAO dao = new ClientesDAO();
         List<Clientes> lista = dao.listarClientes();
-        
+
         DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
-        
+
         //Limpa os dados da tabela para garantir que esteja vazia antes de ser preenchida;
         dados.setNumRows(0);
-        
+
         //Devemos implementar um for para percorrer a lista de clientes que 
         //recebemos de dao.listarClientes(); adicionando uma linha no DefaultTableModel
         //para cada um dos Objects recebidos: dados.addRow(new Object[]).
         //A sequência que colocamos os métodos gets abaixo será a sequência em que os dados
         //serão apresentados na tabela:
-        for(Clientes c : lista){
+        for (Clientes c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
@@ -53,7 +53,7 @@ public class Frmcliente extends javax.swing.JFrame {
             });
         }
     }
-    
+
     /**
      * Creates new form Frmcliente
      */
@@ -146,6 +146,11 @@ public class Frmcliente extends javax.swing.JFrame {
 
         painel_dados.setBackground(new java.awt.Color(255, 255, 255));
         painel_dados.setForeground(new java.awt.Color(255, 255, 255));
+        painel_dados.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                painel_dadosKeyPressed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -222,6 +227,11 @@ public class Frmcliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtCep.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCepKeyPressed(evt);
+            }
+        });
 
         txtEnd.setBackground(new java.awt.Color(255, 255, 255));
         txtEnd.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -288,7 +298,7 @@ public class Frmcliente extends javax.swing.JFrame {
         jLabel13.setText("UF:");
 
         cbUf.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        cbUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MG", "SP", "RJ" }));
+        cbUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
 
         jLabel14.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
@@ -624,28 +634,28 @@ public class Frmcliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtComplementoActionPerformed
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
-   
+
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
         //Botão pesquisar:
-        
+
         String nome = "%" + txtPesquisa.getText() + "%";
-        
+
         ClientesDAO dao = new ClientesDAO();
         List<Clientes> lista = dao.buscaClientePorNome(nome);
-        
+
         DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
-        
+
         //Limpa os dados da tabela para garantir que esteja vazia antes de ser preenchida;
         dados.setNumRows(0);
-        
+
         //Devemos implementar um for para percorrer a lista de clientes que 
         //recebemos de dao.listarClientes(); adicionando uma linha no DefaultTableModel
         //para cada um dos Objects recebidos: dados.addRow(new Object[]).
         //A sequência que colocamos os métodos gets abaixo será a sequência em que os dados
         //serão apresentados na tabela:
-        for(Clientes c : lista){
+        for (Clientes c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
@@ -684,12 +694,12 @@ public class Frmcliente extends javax.swing.JFrame {
 
         ClientesDAO dao = new ClientesDAO();
         dao.cadastrarCliente(obj);
-        
+
         new Utilitarios().limpaTela(painel_dados);
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-         new Utilitarios().limpaTela(painel_dados);
+        new Utilitarios().limpaTela(painel_dados);
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
@@ -708,31 +718,31 @@ public class Frmcliente extends javax.swing.JFrame {
         obj.setBairro(txtBairro.getText());
         obj.setCidade(txtCidade.getText());
         obj.setUf(cbUf.getSelectedItem().toString());
-        
+
         obj.setId(Integer.parseInt(txtCodigo.getText()));
-        
+
         ClientesDAO dao = new ClientesDAO();
-        
+
         dao.alterarCliente(obj);
-        
+
         new Utilitarios().limpaTela(painel_dados);
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         // Botão excluir:
         Clientes obj = new Clientes();
-        
+
         obj.setId(Integer.parseInt(txtCodigo.getText()));
-        
+
         ClientesDAO dao = new ClientesDAO();
-        
+
         dao.excluirCliente(obj);
         new Utilitarios().limpaTela(painel_dados);
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         //Carrega a lista:
-        listarTabela();    
+        listarTabela();
     }//GEN-LAST:event_formWindowActivated
 
     private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
@@ -740,7 +750,7 @@ public class Frmcliente extends javax.swing.JFrame {
         //pelo '0'. Vamos configurar um comando para ao acontecer o evento de clique
         //o sistema automaticamente ir para a aba de índice 0:
         jTabbedPane1.setSelectedIndex(0);
-        
+
         //Passa o valor da coluna código de jTabbedPane1 (tabela de consulta clientes) para
         //o textfield txtCodigo da tela de cadastro. Os parâmetros de tabelaClientes.getValueAt()
         //são linha e coluna. No caso colocamos a linha como sendo a selecionada pelo usuário e a coluna
@@ -759,31 +769,30 @@ public class Frmcliente extends javax.swing.JFrame {
         txtBairro.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 11).toString());
         txtCidade.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 12).toString());
         cbUf.setSelectedItem(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 13).toString());
-        
+
     }//GEN-LAST:event_tabelaClientesMouseClicked
 
     private void txtPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyPressed
-        
+
         //O método txtPesquisaKeyPressed faz com que o retorno da pesquisa seja em 
         //"tempo real", ou seja, conforme o usuário digita as letras ele vai mostrando os
         //resultados.
-        
         String nome = "%" + txtPesquisa.getText() + "%";
-        
+
         ClientesDAO dao = new ClientesDAO();
         List<Clientes> lista = dao.buscaClientePorNome(nome);
-        
+
         DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
-        
+
         //Limpa os dados da tabela para garantir que esteja vazia antes de ser preenchida;
         dados.setNumRows(0);
-        
+
         //Devemos implementar um for para percorrer a lista de clientes que 
         //recebemos de dao.listarClientes(); adicionando uma linha no DefaultTableModel
         //para cada um dos Objects recebidos: dados.addRow(new Object[]).
         //A sequência que colocamos os métodos gets abaixo será a sequência em que os dados
         //serão apresentados na tabela:
-        for(Clientes c : lista){
+        for (Clientes c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
@@ -802,6 +811,26 @@ public class Frmcliente extends javax.swing.JFrame {
             });
         }
     }//GEN-LAST:event_txtPesquisaKeyPressed
+
+    private void painel_dadosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_painel_dadosKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_painel_dadosKeyPressed
+
+    private void txtCepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyPressed
+        
+//Faz a busca no webservice para preencher o CEP automaticamente:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Clientes obj = new Clientes();
+            ClientesDAO dao = new ClientesDAO();
+            obj = dao.buscaCep(txtCep.getText());
+
+            txtEnd.setText(obj.getEndereco());
+            txtBairro.setText(obj.getBairro());
+            txtCidade.setText(obj.getCidade());
+            cbUf.setSelectedItem(obj.getUf());
+            System.out.println(obj.getUf());
+        }
+    }//GEN-LAST:event_txtCepKeyPressed
 
     /**
      * @param args the command line arguments
