@@ -19,8 +19,8 @@ public class ClientesDAO {
     
     private Connection con;
     
-    //Para não precisar abrir a conexão em todos os métodos já inicializamos 
-    //dentro do Construtor dentro da variável con:
+    //Para não precisar abrir a conexão em todos os métodos, já inicializamos 
+    //uma conexão dentro do próprio Construtor:
     public ClientesDAO(){
         this.con = new ConnectionFactory().getConnection();
     }
@@ -180,5 +180,50 @@ public class ClientesDAO {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
             return null;
         }
-    } 
+    }
+    
+    //Método buscar cliente por nome:
+    public List<Clientes> buscaClientePorNome(String nome){
+        try {
+            //1º Criar a lista:
+            List<Clientes> lista = new ArrayList<>();
+            
+            //2º Criar query sql com a busca:
+            String sql = "SELECT * FROM tb_clientes WHERE nome LIKE ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, nome);
+            
+            //Todo comando select salva o resultado da consulta no BD numa classe
+            //chamada ResultSet, ela que utilizaremos para adicionar os itens à lista:
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Clientes obj = new Clientes();
+                obj.setId(rs.getInt("id"));
+                obj.setNome(rs.getString("nome"));
+                obj.setRg(rs.getString("rg"));
+                obj.setCpf(rs.getString("cpf"));
+                obj.setEmail(rs.getString("email"));
+                obj.setTelefone(rs.getString("telefone"));
+                obj.setCelular(rs.getString("celular"));
+                obj.setCep(rs.getString("cep"));
+                obj.setEndereco(rs.getString("endereco"));
+                obj.setEnderecoNumero(rs.getInt("numero"));
+                obj.setComplemento(rs.getString("complemento"));
+                obj.setBairro(rs.getString("bairro"));
+                obj.setCidade(rs.getString("cidade"));
+                obj.setUf(rs.getString("estado"));
+                
+                lista.add(obj);
+            }
+            
+            return lista;
+            
+        } catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(null, "Erro: " + e);
+            return null;
+        }
+    }
+    
 }
