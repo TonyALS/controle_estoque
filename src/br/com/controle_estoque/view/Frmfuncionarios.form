@@ -225,7 +225,7 @@
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="txtSenha" min="-2" pref="232" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="452" max="-2" attributes="0"/>
-                                      <Component id="cbNome" min="-2" pref="134" max="-2" attributes="0"/>
+                                      <Component id="cbNivel" min="-2" pref="134" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="0" pref="42" max="32767" attributes="0"/>
@@ -307,7 +307,7 @@
                               </Group>
                           </Group>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="cbNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbNivel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -756,7 +756,7 @@
                 <Property name="text" type="java.lang.String" value="N&#xed;vel de acesso:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cbNome">
+            <Component class="javax.swing.JComboBox" name="cbNivel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="14" style="0"/>

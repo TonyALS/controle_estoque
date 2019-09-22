@@ -6,7 +6,9 @@
 package br.com.controle_estoque.view;
 
 import br.com.controle_estoque.dao.ClientesDAO;
+import br.com.controle_estoque.dao.FuncionariosDAO;
 import br.com.controle_estoque.model.Clientes;
+import br.com.controle_estoque.model.Funcionarios;
 import br.com.controle_estoque.model.Utilitarios;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -107,7 +109,7 @@ public class Frmfuncionarios extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         txtCargo = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        cbNome = new javax.swing.JComboBox<>();
+        cbNivel = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
@@ -355,8 +357,8 @@ public class Frmfuncionarios extends javax.swing.JFrame {
         jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("Nível de acesso:");
 
-        cbNome.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        cbNome.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuário", "Administrador" }));
+        cbNivel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        cbNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuário", "Administrador" }));
 
         javax.swing.GroupLayout painel_dadosLayout = new javax.swing.GroupLayout(painel_dados);
         painel_dados.setLayout(painel_dadosLayout);
@@ -438,7 +440,7 @@ public class Frmfuncionarios extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(452, 452, 452)
-                                .addComponent(cbNome, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cbNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 42, Short.MAX_VALUE)))
                 .addGap(84, 84, 84))
         );
@@ -500,7 +502,7 @@ public class Frmfuncionarios extends javax.swing.JFrame {
                             .addComponent(jLabel17)
                             .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(painel_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cbNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel19)))
                 .addGap(397, 397, 397))
         );
@@ -736,11 +738,14 @@ public class Frmfuncionarios extends javax.swing.JFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         // Botão salvar:
-        Clientes obj = new Clientes();
+        Funcionarios obj = new Funcionarios();
         obj.setNome(txtNome.getText());
         obj.setRg(txtRg.getText());
         obj.setCpf(txtCpf.getText());
         obj.setEmail(txtEmail.getText());
+        obj.setSenha(txtSenha.getText());
+        obj.setCargo(txtCargo.getText());
+        obj.setNivel_acesso(cbNivel.getSelectedItem().toString());
         obj.setTelefone(txtFixo.getText());
         obj.setCelular(txtCel.getText());
         obj.setCep(txtCep.getText());
@@ -751,8 +756,8 @@ public class Frmfuncionarios extends javax.swing.JFrame {
         obj.setCidade(txtCidade.getText());
         obj.setUf(cbUf.getSelectedItem().toString());
 
-        ClientesDAO dao = new ClientesDAO();
-        dao.cadastrarCliente(obj);
+        FuncionariosDAO dao = new FuncionariosDAO();
+        dao.cadastrarFuncionario(obj);
 
         new Utilitarios().limpaTela(painel_dados);
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -937,7 +942,7 @@ public class Frmfuncionarios extends javax.swing.JFrame {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JComboBox<String> cbNome;
+    private javax.swing.JComboBox<String> cbNivel;
     private javax.swing.JComboBox<String> cbUf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
