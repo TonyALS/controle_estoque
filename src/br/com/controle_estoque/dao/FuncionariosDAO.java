@@ -9,6 +9,7 @@ import br.com.controle_estoque.jdbc.ConnectionFactory;
 import br.com.controle_estoque.model.Clientes;
 import br.com.controle_estoque.model.Funcionarios;
 import br.com.controle_estoque.model.WebServiceCep;
+import br.com.controle_estoque.view.Frmmenu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -266,5 +267,33 @@ public class FuncionariosDAO {
             return null;
         }
 
-    }  
+    }
+    
+    //Método de login para os funcionários:
+    public void efetuaLogin(String email, String senha){
+        try {
+            //1º - SQL
+            String sql = "SELECT * FROM tb_funcionarios "
+                        + " WHERE email=? and senha=?";
+            
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, email);
+            stmt.setString(2, senha);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            if(rs.next()){
+                //Usuário logou, chama a tela principal do programa:
+                Frmmenu tela = new Frmmenu();
+                tela.setVisible(true);
+                
+            }else{
+                //Dados incorretos
+                JOptionPane.showMessageDialog(null, "Dados incorretos.");
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro: " + e);
+        }
+    }   
 }
