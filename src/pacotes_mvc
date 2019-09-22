@@ -20,3 +20,7 @@ DINÂMICA DE CONEXÃO COM UM BD:
 1º Conectar com o banco de dados;
 2° Executar o comando SQL;
 3º Fechar a conexão com o banco de dados.
+
+ADICIONANDO DADOS NA TABELA DE LISTAGEM
+1º Para conseguirmos adicionar dados a uma tabela JTable precisamos criar um objeto 
+do tipo JDefaultTableModel, ele funciona como um "intermediador" para inserção.

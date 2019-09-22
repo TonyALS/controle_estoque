@@ -77,7 +77,7 @@ public class FuncionariosDAO {
     }
      
      //Método listarTodosOsFuncionários:
-    public List<Clientes> listarFuncionarios(){
+    public List<Funcionarios> listarFuncionarios(){
         try {
             //1º Criar a lista:
             List<Funcionarios> lista = new ArrayList<>();
@@ -91,12 +91,15 @@ public class FuncionariosDAO {
             ResultSet rs = stmt.executeQuery();
             
             while(rs.next()){
-                Clientes obj = new Clientes();
+                Funcionarios obj = new Funcionarios();
                 obj.setId(rs.getInt("id"));
                 obj.setNome(rs.getString("nome"));
                 obj.setRg(rs.getString("rg"));
                 obj.setCpf(rs.getString("cpf"));
                 obj.setEmail(rs.getString("email"));
+                obj.setSenha(rs.getString("senha"));
+                obj.setCargo(rs.getString("cargo"));
+                obj.setNivel_acesso(rs.getString("nivel_acesso"));
                 obj.setTelefone(rs.getString("telefone"));
                 obj.setCelular(rs.getString("celular"));
                 obj.setCep(rs.getString("cep"));
@@ -117,6 +120,5 @@ public class FuncionariosDAO {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
             return null;
         }
-    }
-    
+    }  
 }

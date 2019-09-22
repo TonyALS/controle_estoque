@@ -23,35 +23,42 @@ public class Frmfuncionarios extends javax.swing.JFrame {
     //Método listar na tabela:
     public void listarTabela() {
 
-        ClientesDAO dao = new ClientesDAO();
-        List<Clientes> lista = dao.listarClientes();
+        FuncionariosDAO dao = new FuncionariosDAO();
+        
+        //Criamos uma lista de funcionarios e salvamos dentro dela o resultado
+        //da execução do método listarFuncionarios();
+        List<Funcionarios> lista = dao.listarFuncionarios();
 
         DefaultTableModel dados = (DefaultTableModel) tabelaFuncionarios.getModel();
 
         //Limpa os dados da tabela para garantir que esteja vazia antes de ser preenchida;
         dados.setNumRows(0);
 
-        //Devemos implementar um for para percorrer a lista de clientes que 
-        //recebemos de dao.listarClientes(); adicionando uma linha no DefaultTableModel
+        //Devemos implementar um for para percorrer a lista de funcionários que 
+        //recebemos de dao.listarFuncionarios(); adicionando uma linha no DefaultTableModel
         //para cada um dos Objects recebidos: dados.addRow(new Object[]).
         //A sequência que colocamos os métodos gets abaixo será a sequência em que os dados
         //serão apresentados na tabela:
-        for (Clientes c : lista) {
+        for (Funcionarios f : lista) {
+            //Dados é a DefaultTableModel:
             dados.addRow(new Object[]{
-                c.getId(),
-                c.getNome(),
-                c.getRg(),
-                c.getCpf(),
-                c.getEmail(),
-                c.getTelefone(),
-                c.getCelular(),
-                c.getCep(),
-                c.getEndereco(),
-                c.getEnderecoNumero(),
-                c.getComplemento(),
-                c.getBairro(),
-                c.getCidade(),
-                c.getUf()
+                f.getId(),
+                f.getNome(),
+                f.getRg(),
+                f.getCpf(),
+                f.getEmail(),
+                f.getSenha(),
+                f.getCargo(),
+                f.getNivel_acesso(),
+                f.getTelefone(),
+                f.getCelular(),
+                f.getCep(),
+                f.getEndereco(),
+                f.getEnderecoNumero(),
+                f.getComplemento(),
+                f.getBairro(),
+                f.getCidade(),
+                f.getUf()
             });
         }
     }
