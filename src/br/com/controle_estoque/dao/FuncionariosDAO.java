@@ -9,7 +9,8 @@ import br.com.controle_estoque.jdbc.ConnectionFactory;
 import br.com.controle_estoque.model.Clientes;
 import br.com.controle_estoque.model.Funcionarios;
 import br.com.controle_estoque.model.WebServiceCep;
-import br.com.controle_estoque.view.Frmmenu;
+import br.com.controle_estoque.view.FrmLogin;
+import br.com.controle_estoque.view.FrmMenu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -284,12 +285,16 @@ public class FuncionariosDAO {
             
             if(rs.next()){
                 //Usuário logou, chama a tela principal do programa:
-                Frmmenu tela = new Frmmenu();
+                FrmMenu tela = new FrmMenu();
+                //usuarioLogado é uma variável public presente na Frmmenu:
+                tela.usuarioLogado = rs.getString("nome");
                 tela.setVisible(true);
                 
             }else{
                 //Dados incorretos
                 JOptionPane.showMessageDialog(null, "Dados incorretos.");
+                //Abre novamente a tela de login para o usuário inserir as credenciais:
+                new FrmLogin().setVisible(true);
             }
             
         } catch (SQLException e) {
