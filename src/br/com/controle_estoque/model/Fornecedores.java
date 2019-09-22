@@ -20,4 +20,12 @@ public class Fornecedores extends Clientes{
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
+    
+    //Sobrescrevemos o método toString para retornar somente o nome do fornecedor
+    //assim no combobox de selecionar fornecedor dos produtos teremos somente o nome
+    //e não a representação literal do objeto.
+    @Override
+    public String toString(){
+        return this.getNome();
+    }
 }
