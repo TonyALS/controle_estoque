@@ -6,7 +6,6 @@
 package br.com.controle_estoque.dao;
 
 import br.com.controle_estoque.jdbc.ConnectionFactory;
-import br.com.controle_estoque.model.Clientes;
 import br.com.controle_estoque.model.Funcionarios;
 import br.com.controle_estoque.model.WebServiceCep;
 import br.com.controle_estoque.view.FrmLogin;
