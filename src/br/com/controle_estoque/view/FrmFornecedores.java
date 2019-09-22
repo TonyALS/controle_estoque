@@ -29,8 +29,8 @@ public class FrmFornecedores extends javax.swing.JFrame {
         //Limpa os dados da tabela para garantir que esteja vazia antes de ser preenchida;
         dados.setNumRows(0);
 
-        //Devemos implementar um for para percorrer a lista de clientes que 
-        //recebemos de dao.listarClientes(); adicionando uma linha no DefaultTableModel
+        //Devemos implementar um for para percorrer a lista de fornecedores que 
+        //recebemos de dao.listarFornecedores(); adicionando uma linha no DefaultTableModel
         //para cada um dos Objects recebidos: dados.addRow(new Object[]).
         //A sequência que colocamos os métodos gets abaixo será a sequência em que os dados
         //serão apresentados na tabela:
@@ -628,8 +628,8 @@ public class FrmFornecedores extends javax.swing.JFrame {
         //Limpa os dados da tabela para garantir que esteja vazia antes de ser preenchida;
         dados.setNumRows(0);
 
-        //Devemos implementar um for para percorrer a lista de clientes que 
-        //recebemos de dao.listarClientes(); adicionando uma linha no DefaultTableModel
+        //Devemos implementar um for para percorrer a lista de fornecedores que 
+        //recebemos de dao.listarFornecedores(); adicionando uma linha no DefaultTableModel
         //para cada um dos Objects recebidos: dados.addRow(new Object[]).
         //A sequência que colocamos os métodos gets abaixo será a sequência em que os dados
         //serão apresentados na tabela:
@@ -726,8 +726,8 @@ public class FrmFornecedores extends javax.swing.JFrame {
         //o sistema automaticamente ir para a aba de índice 0:
         jTabbedPane1.setSelectedIndex(0);
 
-        //Passa o valor da coluna código de jTabbedPane1 (tabela de consulta clientes) para
-        //o textfield txtCodigo da tela de cadastro. Os parâmetros de tabelaClientes.getValueAt()
+        //Passa o valor da coluna código de jTabbedPane1 (tabela de consulta fornecedores) para
+        //o textfield txtCodigo da tela de cadastro. Os parâmetros de tabelaFornecedores.getValueAt()
         //são linha e coluna. No caso colocamos a linha como sendo a selecionada pelo usuário e a coluna
         //é igual a 0 pois no índice de colunas da tabela código é a n° 0:
         txtCodigo.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 0).toString());
@@ -761,8 +761,8 @@ public class FrmFornecedores extends javax.swing.JFrame {
         //Limpa os dados da tabela para garantir que esteja vazia antes de ser preenchida;
         dados.setNumRows(0);
 
-        //Devemos implementar um for para percorrer a lista de clientes que 
-        //recebemos de dao.listarClientes(); adicionando uma linha no DefaultTableModel
+        //Devemos implementar um for para percorrer a lista de fornecedores que 
+        //recebemos de dao.listarFornecedores(); adicionando uma linha no DefaultTableModel
         //para cada um dos Objects recebidos: dados.addRow(new Object[]).
         //A sequência que colocamos os métodos gets abaixo será a sequência em que os dados
         //serão apresentados na tabela:
