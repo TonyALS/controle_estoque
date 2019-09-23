@@ -96,4 +96,52 @@ public class ProdutosDAO {
             return null;
         }
     }
+    
+    public void alterarProduto(Produtos obj) {
+        try {
+
+            String sql = "UPDATE tb_produtos SET descricao=?, preco=?,"
+                    + " qtd_estoque=?, for_id=? WHERE id=?";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, obj.getDescricao());
+            stmt.setDouble(2, obj.getPreco());
+            stmt.setInt(3, obj.getQtdEstoque());
+
+            //O quarto item é a chave estrangeira da tabela de fornecedores.
+            stmt.setInt(4, obj.getFornecedor().getId());
+            
+            //Onde recebemos o id da cláusula WHERE:
+            stmt.setInt(5, obj.getId());
+
+            stmt.execute();
+            stmt.close();
+
+            JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, "Erro: " + e);
+        }
+    }
+    
+    public void excuirProduto(Produtos obj){
+        try {
+            
+            String sql = "DELETE FROM tb_produtos WHERE id = ?";
+            
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setInt(1, obj.getId());
+            
+            stmt.execute();
+            stmt.close();
+            
+            JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
+            
+        } catch (SQLException e) {
+            
+            JOptionPane.showMessageDialog(null, "Erro: " + e);
+        }
+    }   
 }

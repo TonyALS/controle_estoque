@@ -479,15 +479,20 @@ public class FrmProduto extends javax.swing.JFrame {
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // Botão editar:
-        Clientes obj = new Clientes();
-        obj.setNome(txtDescricao.getText());
-        obj.setEmail(txtPreco.getText());
-        obj.setUf(cbFornecedor.getSelectedItem().toString());
+        Produtos obj = new Produtos();
         obj.setId(Integer.parseInt(txtCodigo.getText()));
-
-        ClientesDAO dao = new ClientesDAO();
-
-        dao.alterarCliente(obj);
+        obj.setDescricao(txtDescricao.getText());
+        obj.setPreco(Double.parseDouble(txtPreco.getText()));
+        obj.setQtdEstoque(Integer.parseInt(txtQtdEstoque.getText()));
+        
+        //Cria um objeto do tipo Fornecedor:
+        Fornecedores f = new Fornecedores();
+        f = (Fornecedores)cbFornecedor.getSelectedItem();
+        obj.setFornecedor(f);
+        
+        ProdutosDAO dao =  new ProdutosDAO();
+        
+        dao.alterarProduto(obj);
 
         new Utilitarios().limpaTela(painel_dados);
     }//GEN-LAST:event_btEditarActionPerformed
@@ -514,15 +519,18 @@ public class FrmProduto extends javax.swing.JFrame {
         //pelo '0'. Vamos configurar um comando para ao acontecer o evento de clique
         //o sistema automaticamente ir para a aba de índice 0:
         jTabbedPane1.setSelectedIndex(0);
-
-        //Passa o valor da coluna código de jTabbedPane1 (tabela de consulta clientes) para
-        //o textfield txtCodigo da tela de cadastro. Os parâmetros de tabelaClientes.getValueAt()
-        //são linha e coluna. No caso colocamos a linha como sendo a selecionada pelo usuário e a coluna
-        //é igual a 0 pois no índice de colunas da tabela código é a n° 0:
         txtCodigo.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0).toString());
         txtDescricao.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 1).toString());
-        txtPreco.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 4).toString());
-        cbFornecedor.setSelectedItem(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 13).toString());
+        txtPreco.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 2).toString());
+        txtQtdEstoque.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 3).toString());
+        
+        Fornecedores f = new Fornecedores();
+        FornecedoresDAO daof = new FornecedoresDAO();
+        
+        f = daof.consultaPorNome(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 4).toString());
+        
+        cbFornecedor.removeAllItems();
+        cbFornecedor.getModel().setSelectedItem(f);
 
     }//GEN-LAST:event_tabelaProdutosMouseClicked
 
