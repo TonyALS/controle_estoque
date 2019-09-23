@@ -7,8 +7,10 @@ package br.com.controle_estoque.view;
 
 import br.com.controle_estoque.dao.ClientesDAO;
 import br.com.controle_estoque.dao.FornecedoresDAO;
+import br.com.controle_estoque.dao.ProdutosDAO;
 import br.com.controle_estoque.model.Clientes;
 import br.com.controle_estoque.model.Fornecedores;
+import br.com.controle_estoque.model.Produtos;
 import br.com.controle_estoque.model.Utilitarios;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -456,23 +458,27 @@ public class FrmProduto extends javax.swing.JFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         // Botão salvar:
-        Clientes obj = new Clientes();
-        obj.setNome(txtDescricao.getText());
-        obj.setRg(txtRg.getText());
-        obj.setCpf(txtCpf.getText());
-        obj.setEmail(txtPreco.getText());
-        obj.setTelefone(txtFixo.getText());
-        obj.setCelular(txtCel.getText());
-        obj.setCep(txtCep.getText());
-        obj.setEndereco(txtEnd.getText());
-        obj.setEnderecoNumero(Integer.parseInt(txtNumero.getText()));
-        obj.setComplemento(txtComplemento.getText());
-        obj.setBairro(txtBairro.getText());
-        obj.setCidade(txtCidade.getText());
-        obj.setUf(cbFornecedor.getSelectedItem().toString());
-
-        ClientesDAO dao = new ClientesDAO();
-        dao.cadastrarCliente(obj);
+        Produtos obj = new Produtos();
+        obj.setDescricao(txtDescricao.getText());
+        obj.setPreco(Double.parseDouble(txtPreco.getText()));
+        obj.setQtdEstoque(Integer.parseInt(txtQtdEstoque.getText()));
+        
+        //Pegando o código do fornecedor:
+        //1º Devemos criar um objeto do tipo Fornecedores:
+        Fornecedores f = new Fornecedores();
+        //O objeto f (que é do tipo Fornecedores) receberá do combobox o item
+        //selecionado, que por sua vez, apesar de estar mostrando somente o nome
+        //do fornecedor pois fizemos override no toString de Fornecedores, contém
+        //um objeto Fornecedores completo, com nome, CNPJ, id etc:
+        //Precisamos fazer um casting para que seja aceita a atribuição:
+        f = (Fornecedores) cbFornecedor.getSelectedItem();
+        
+        //O obj do tipo Produtos recebe o objeto do tipo Fornecedores selecionado no
+        //combo box:
+        obj.setFornecedor(f);
+        
+        ProdutosDAO dao = new ProdutosDAO();
+        dao.cadastrarProduto(obj);
 
         new Utilitarios().limpaTela(painel_dados);
     }//GEN-LAST:event_btSalvarActionPerformed
