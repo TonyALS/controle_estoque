@@ -12,7 +12,6 @@ import br.com.controle_estoque.model.Clientes;
 import br.com.controle_estoque.model.Fornecedores;
 import br.com.controle_estoque.model.Produtos;
 import br.com.controle_estoque.model.Utilitarios;
-import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,35 +24,26 @@ public class FrmProduto extends javax.swing.JFrame {
     //Método listar na tabela:
     public void listarTabela() {
 
-        ClientesDAO dao = new ClientesDAO();
-        List<Clientes> lista = dao.listarClientes();
+        ProdutosDAO dao = new ProdutosDAO();
+        List<Produtos> lista = dao.listarProdutos();
 
         DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
 
         //Limpa os dados da tabela para garantir que esteja vazia antes de ser preenchida;
         dados.setNumRows(0);
 
-        //Devemos implementar um for para percorrer a lista de clientes que 
-        //recebemos de dao.listarClientes(); adicionando uma linha no DefaultTableModel
+        //Devemos implementar um for para percorrer a lista de produtos que 
+        //recebemos de dao.listarProdutos(); adicionando uma linha no DefaultTableModel
         //para cada um dos Objects recebidos: dados.addRow(new Object[]).
         //A sequência que colocamos os métodos gets abaixo será a sequência em que os dados
         //serão apresentados na tabela:
-        for (Clientes c : lista) {
+        for (Produtos p : lista) {
             dados.addRow(new Object[]{
-                c.getId(),
-                c.getNome(),
-                c.getRg(),
-                c.getCpf(),
-                c.getEmail(),
-                c.getTelefone(),
-                c.getCelular(),
-                c.getCep(),
-                c.getEndereco(),
-                c.getEnderecoNumero(),
-                c.getComplemento(),
-                c.getBairro(),
-                c.getCidade(),
-                c.getUf()
+                p.getId(),
+                p.getDescricao(),
+                p.getPreco(),
+                p.getQtdEstoque(),
+                p.getFornecedor().getNome()    
             });
         }
     }
@@ -491,19 +481,8 @@ public class FrmProduto extends javax.swing.JFrame {
         // Botão editar:
         Clientes obj = new Clientes();
         obj.setNome(txtDescricao.getText());
-        obj.setRg(txtRg.getText());
-        obj.setCpf(txtCpf.getText());
         obj.setEmail(txtPreco.getText());
-        obj.setTelefone(txtFixo.getText());
-        obj.setCelular(txtCel.getText());
-        obj.setCep(txtCep.getText());
-        obj.setEndereco(txtEnd.getText());
-        obj.setEnderecoNumero(Integer.parseInt(txtNumero.getText()));
-        obj.setComplemento(txtComplemento.getText());
-        obj.setBairro(txtBairro.getText());
-        obj.setCidade(txtCidade.getText());
         obj.setUf(cbFornecedor.getSelectedItem().toString());
-
         obj.setId(Integer.parseInt(txtCodigo.getText()));
 
         ClientesDAO dao = new ClientesDAO();
@@ -542,17 +521,7 @@ public class FrmProduto extends javax.swing.JFrame {
         //é igual a 0 pois no índice de colunas da tabela código é a n° 0:
         txtCodigo.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0).toString());
         txtDescricao.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 1).toString());
-        txtRg.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 2).toString());
-        txtCpf.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 3).toString());
         txtPreco.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 4).toString());
-        txtFixo.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 5).toString());
-        txtCel.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 6).toString());
-        txtCep.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 7).toString());
-        txtEnd.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 8).toString());
-        txtNumero.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 9).toString());
-        txtComplemento.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 10).toString());
-        txtBairro.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 11).toString());
-        txtCidade.setText(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 12).toString());
         cbFornecedor.setSelectedItem(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 13).toString());
 
     }//GEN-LAST:event_tabelaProdutosMouseClicked

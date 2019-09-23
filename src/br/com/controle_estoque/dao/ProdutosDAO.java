@@ -6,10 +6,14 @@
 package br.com.controle_estoque.dao;
 
 import br.com.controle_estoque.jdbc.ConnectionFactory;
+import br.com.controle_estoque.model.Fornecedores;
 import br.com.controle_estoque.model.Produtos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -50,6 +54,46 @@ public class ProdutosDAO {
         } catch (SQLException e) {
 
             JOptionPane.showMessageDialog(null, "Erro: " + e);
+        }
+    }
+    
+    public List<Produtos> listarProdutos(){
+        try {
+            
+            //1º Passo: Criar a lista:
+            List<Produtos> lista = new ArrayList<>();
+            
+            //2º Passo: Criar o SQL que fará a seleção no BD:
+            String sql = "SELECT p.id, p.descricao, p.preco, p.qtd_estoque,"
+                    + " f.nome FROM tb_produtos AS p INNER JOIN tb_fornecedores"
+                    + " AS f ON(p.for_id = f.id)";
+            
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Produtos obj = new Produtos();
+                Fornecedores f = new Fornecedores();
+                
+                obj.setId(rs.getInt("p.id"));
+                obj.setDescricao(rs.getString("p.descricao"));
+                obj.setPreco(rs.getDouble("p.preco"));
+                obj.setQtdEstoque(rs.getInt("p.qtd_estoque"));
+                
+                f.setNome(rs.getString("f.nome"));
+                
+                //Salvamos um objeto do tipo Fornecedores dentro de um objeto do tipo
+                //Produtos:
+                obj.setFornecedor(f);
+                
+                lista.add(obj);
+            }
+            
+            return lista;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro: " + e);
+            return null;
         }
     }
 }
