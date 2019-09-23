@@ -125,7 +125,7 @@ public class ProdutosDAO {
         }
     }
     
-    public void excuirProduto(Produtos obj){
+    public void excluirProduto(Produtos obj){
         try {
             
             String sql = "DELETE FROM tb_produtos WHERE id = ?";
