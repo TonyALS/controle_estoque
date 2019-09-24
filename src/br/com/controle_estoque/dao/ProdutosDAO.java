@@ -143,5 +143,45 @@ public class ProdutosDAO {
             
             JOptionPane.showMessageDialog(null, "Erro: " + e);
         }
-    }   
+    } 
+    
+    //Método listar produtos por nome:
+    public List<Produtos> buscaProdutoPorNome(String nome){
+        try {
+            
+            //1º Passo: Criar a lista:
+            List<Produtos> lista = new ArrayList<>();
+            
+            //2º Passo: Criar o SQL que fará a seleção no BD:
+            String sql = "SELECT p.id, p.descricao, p.preco, p.qtd_estoque,"
+                    + " f.nome FROM tb_produtos AS p INNER JOIN tb_fornecedores"
+                    + " AS f ON(p.for_id = f.id) WHERE p.descricao LIKE ?";
+            
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Produtos obj = new Produtos();
+                Fornecedores f = new Fornecedores();
+                
+                obj.setId(rs.getInt("p.id"));
+                obj.setDescricao(rs.getString("p.descricao"));
+                obj.setPreco(rs.getDouble("p.preco"));
+                obj.setQtdEstoque(rs.getInt("p.qtd_estoque"));
+                
+                f.setNome(rs.getString("f.nome"));
+                
+                obj.setFornecedor(f);
+                
+                lista.add(obj);
+            }
+            
+            return lista;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro: " + e);
+            return null;
+        }
+    }
 }

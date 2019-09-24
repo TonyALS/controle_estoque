@@ -5,10 +5,8 @@
  */
 package br.com.controle_estoque.view;
 
-import br.com.controle_estoque.dao.ClientesDAO;
 import br.com.controle_estoque.dao.FornecedoresDAO;
 import br.com.controle_estoque.dao.ProdutosDAO;
-import br.com.controle_estoque.model.Clientes;
 import br.com.controle_estoque.model.Fornecedores;
 import br.com.controle_estoque.model.Produtos;
 import br.com.controle_estoque.model.Utilitarios;
@@ -413,8 +411,8 @@ public class FrmProduto extends javax.swing.JFrame {
 
         String nome = "%" + txtPesquisa.getText() + "%";
 
-        ClientesDAO dao = new ClientesDAO();
-        List<Clientes> lista = dao.buscaClientePorNome(nome);
+        ProdutosDAO dao = new ProdutosDAO();
+        List<Produtos> lista = dao.buscaProdutoPorNome(nome);
 
         DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
 
@@ -426,22 +424,13 @@ public class FrmProduto extends javax.swing.JFrame {
         //para cada um dos Objects recebidos: dados.addRow(new Object[]).
         //A sequência que colocamos os métodos gets abaixo será a sequência em que os dados
         //serão apresentados na tabela:
-        for (Clientes c : lista) {
+        for (Produtos p : lista) {
             dados.addRow(new Object[]{
-                c.getId(),
-                c.getNome(),
-                c.getRg(),
-                c.getCpf(),
-                c.getEmail(),
-                c.getTelefone(),
-                c.getCelular(),
-                c.getCep(),
-                c.getEndereco(),
-                c.getEnderecoNumero(),
-                c.getComplemento(),
-                c.getBairro(),
-                c.getCidade(),
-                c.getUf()
+                p.getId(),
+                p.getDescricao(),
+                p.getPreco(),
+                p.getQtdEstoque(),
+                p.getFornecedor().getNome()
             });
         }
     }//GEN-LAST:event_btPesquisarActionPerformed
@@ -541,8 +530,8 @@ public class FrmProduto extends javax.swing.JFrame {
         //resultados.
         String nome = "%" + txtPesquisa.getText() + "%";
 
-        ClientesDAO dao = new ClientesDAO();
-        List<Clientes> lista = dao.buscaClientePorNome(nome);
+        ProdutosDAO dao = new ProdutosDAO();
+        List<Produtos> lista = dao.buscaProdutoPorNome(nome);
 
         DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
 
@@ -554,22 +543,13 @@ public class FrmProduto extends javax.swing.JFrame {
         //para cada um dos Objects recebidos: dados.addRow(new Object[]).
         //A sequência que colocamos os métodos gets abaixo será a sequência em que os dados
         //serão apresentados na tabela:
-        for (Clientes c : lista) {
+        for (Produtos p : lista) {
             dados.addRow(new Object[]{
-                c.getId(),
-                c.getNome(),
-                c.getRg(),
-                c.getCpf(),
-                c.getEmail(),
-                c.getTelefone(),
-                c.getCelular(),
-                c.getCep(),
-                c.getEndereco(),
-                c.getEnderecoNumero(),
-                c.getComplemento(),
-                c.getBairro(),
-                c.getCidade(),
-                c.getUf()
+                p.getId(),
+                p.getDescricao(),
+                p.getPreco(),
+                p.getQtdEstoque(),
+                p.getFornecedor().getNome()
             });
         }
     }//GEN-LAST:event_txtPesquisaKeyPressed
