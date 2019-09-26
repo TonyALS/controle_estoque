@@ -10,6 +10,8 @@ import br.com.controle_estoque.dao.ProdutosDAO;
 import br.com.controle_estoque.model.Fornecedores;
 import br.com.controle_estoque.model.Produtos;
 import br.com.controle_estoque.model.Utilitarios;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -161,6 +163,7 @@ public class FrmVendas extends javax.swing.JFrame {
             }
         });
 
+        txtDataAtual.setEditable(false);
         txtDataAtual.setBackground(new java.awt.Color(255, 255, 255));
         txtDataAtual.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txtDataAtual.addActionListener(new java.awt.event.ActionListener() {
@@ -489,8 +492,14 @@ public class FrmVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelarVendaActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        //Carrega a lista:
-        listarTabela();
+        
+        //Carrega e formata a data atual do sistema:
+        Date agora = new Date();
+        
+        SimpleDateFormat dataBr = new SimpleDateFormat("dd/MM/yyyy");
+        String dataFormatada = dataBr.format(agora);
+        txtDataAtual.setText(dataFormatada);
+        
     }//GEN-LAST:event_formWindowActivated
 
     private void txtNomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeClienteActionPerformed
