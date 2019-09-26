@@ -5,11 +5,14 @@
  */
 package br.com.controle_estoque.view;
 
+import br.com.controle_estoque.dao.ClientesDAO;
 import br.com.controle_estoque.dao.FornecedoresDAO;
 import br.com.controle_estoque.dao.ProdutosDAO;
+import br.com.controle_estoque.model.Clientes;
 import br.com.controle_estoque.model.Fornecedores;
 import br.com.controle_estoque.model.Produtos;
 import br.com.controle_estoque.model.Utilitarios;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +46,7 @@ public class FrmVendas extends javax.swing.JFrame {
                 p.getDescricao(),
                 p.getPreco(),
                 p.getQtdEstoque(),
-                p.getFornecedor().getNome()    
+                p.getFornecedor().getNome()
             });
         }
     }
@@ -190,6 +193,11 @@ public class FrmVendas extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtCpf.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCpfKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -240,6 +248,11 @@ public class FrmVendas extends javax.swing.JFrame {
         txtCodProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodProdutoActionPerformed(evt);
+            }
+        });
+        txtCodProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCodProdutoKeyPressed(evt);
             }
         });
 
@@ -466,14 +479,14 @@ public class FrmVendas extends javax.swing.JFrame {
         obj.setDescricao(txtDescricao.getText());
         obj.setPreco(Double.parseDouble(txtPreco.getText()));
         obj.setQtdEstoque(Integer.parseInt(txtQtdEstoque.getText()));
-        
+
         //Cria um objeto do tipo Fornecedor:
         Fornecedores f = new Fornecedores();
-        f = (Fornecedores)cbFornecedor.getSelectedItem();
+        f = (Fornecedores) cbFornecedor.getSelectedItem();
         obj.setFornecedor(f);
-        
-        ProdutosDAO dao =  new ProdutosDAO();
-        
+
+        ProdutosDAO dao = new ProdutosDAO();
+
         dao.alterarProduto(obj);
 
         new Utilitarios().limpaTela(painel_dados);
@@ -492,14 +505,14 @@ public class FrmVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelarVendaActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        
+
         //Carrega e formata a data atual do sistema:
         Date agora = new Date();
-        
+
         SimpleDateFormat dataBr = new SimpleDateFormat("dd/MM/yyyy");
         String dataFormatada = dataBr.format(agora);
         txtDataAtual.setText(dataFormatada);
-        
+
     }//GEN-LAST:event_formWindowActivated
 
     private void txtNomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeClienteActionPerformed
@@ -531,12 +544,59 @@ public class FrmVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_btPesquisarProdutoActionPerformed
 
     private void btPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarClienteActionPerformed
-        // TODO add your handling code here:
+        String cpf = txtCpf.getText();
+        ClientesDAO dao = new ClientesDAO();
+        Clientes obj = new Clientes();
+
+        obj = dao.buscaClientePorCPF(cpf);
+        txtNomeCliente.setText(obj.getNome());
     }//GEN-LAST:event_btPesquisarClienteActionPerformed
 
     private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalActionPerformed
+
+    private void txtCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyPressed
+        // Busca cliente por CPF:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                String cpf = txtCpf.getText();
+                ClientesDAO dao = new ClientesDAO();
+                Clientes obj = new Clientes();
+
+                obj = dao.buscaClientePorCPF(cpf);
+                txtNomeCliente.setText(obj.getNome());
+
+            } catch (Exception e) {
+
+                System.out.println(e);
+
+            }
+        }
+    }//GEN-LAST:event_txtCpfKeyPressed
+
+    private void txtCodProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodProdutoKeyPressed
+        // Busca produtos por código:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                int codigo = Integer.parseInt(txtCodProduto.getText());
+                
+                ProdutosDAO dao = new ProdutosDAO();
+                Produtos obj = new Produtos();
+
+                obj = dao.buscaProdutoPorCodigo(codigo);
+                txtNomeProduto.setText(obj.getDescricao());
+                txtPrecoProduto.setText(String.valueOf(obj.getPreco()));
+
+            } catch (Exception e) {
+
+                System.out.println(e);
+
+            }
+        }
+        
+        
+    }//GEN-LAST:event_txtCodProdutoKeyPressed
 
     /**
      * @param args the command line arguments

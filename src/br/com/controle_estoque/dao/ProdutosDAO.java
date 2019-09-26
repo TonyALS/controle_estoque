@@ -56,47 +56,47 @@ public class ProdutosDAO {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
         }
     }
-    
-    public List<Produtos> listarProdutos(){
+
+    public List<Produtos> listarProdutos() {
         try {
-            
+
             //1º Passo: Criar a lista:
             List<Produtos> lista = new ArrayList<>();
-            
+
             //2º Passo: Criar o SQL que fará a seleção no BD:
             String sql = "SELECT p.id, p.descricao, p.preco, p.qtd_estoque,"
                     + " f.nome FROM tb_produtos AS p INNER JOIN tb_fornecedores"
                     + " AS f ON(p.for_id = f.id)";
-            
+
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Produtos obj = new Produtos();
                 Fornecedores f = new Fornecedores();
-                
+
                 obj.setId(rs.getInt("p.id"));
                 obj.setDescricao(rs.getString("p.descricao"));
                 obj.setPreco(rs.getDouble("p.preco"));
                 obj.setQtdEstoque(rs.getInt("p.qtd_estoque"));
-                
+
                 f.setNome(rs.getString("f.nome"));
-                
+
                 //Salvamos um objeto do tipo Fornecedores dentro de um objeto do tipo
                 //Produtos:
                 obj.setFornecedor(f);
-                
+
                 lista.add(obj);
             }
-            
+
             return lista;
-            
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
             return null;
         }
     }
-    
+
     public void alterarProduto(Produtos obj) {
         try {
 
@@ -110,7 +110,7 @@ public class ProdutosDAO {
 
             //O quarto item é a chave estrangeira da tabela de fornecedores.
             stmt.setInt(4, obj.getFornecedor().getId());
-            
+
             //Onde recebemos o id da cláusula WHERE:
             stmt.setInt(5, obj.getId());
 
@@ -124,60 +124,86 @@ public class ProdutosDAO {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
         }
     }
-    
-    public void excluirProduto(Produtos obj){
+
+    public void excluirProduto(Produtos obj) {
         try {
-            
+
             String sql = "DELETE FROM tb_produtos WHERE id = ?";
-            
+
             PreparedStatement stmt = con.prepareStatement(sql);
-            
+
             stmt.setInt(1, obj.getId());
-            
+
             stmt.execute();
             stmt.close();
-            
+
             JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
-            
+
         } catch (SQLException e) {
-            
+
             JOptionPane.showMessageDialog(null, "Erro: " + e);
         }
-    } 
-    
+    }
+
     //Método listar produtos por nome:
-    public List<Produtos> buscaProdutoPorNome(String nome){
+    public List<Produtos> buscaProdutoPorNome(String nome) {
         try {
-            
+
             //1º Passo: Criar a lista:
             List<Produtos> lista = new ArrayList<>();
-            
+
             //2º Passo: Criar o SQL que fará a seleção no BD:
             String sql = "SELECT p.id, p.descricao, p.preco, p.qtd_estoque,"
                     + " f.nome FROM tb_produtos AS p INNER JOIN tb_fornecedores"
                     + " AS f ON(p.for_id = f.id) WHERE p.descricao LIKE ?";
-            
+
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, nome);
             ResultSet rs = stmt.executeQuery();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Produtos obj = new Produtos();
                 Fornecedores f = new Fornecedores();
-                
+
                 obj.setId(rs.getInt("p.id"));
                 obj.setDescricao(rs.getString("p.descricao"));
                 obj.setPreco(rs.getDouble("p.preco"));
                 obj.setQtdEstoque(rs.getInt("p.qtd_estoque"));
-                
+
                 f.setNome(rs.getString("f.nome"));
-                
+
                 obj.setFornecedor(f);
-                
+
                 lista.add(obj);
             }
-            
+
             return lista;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro: " + e);
+            return null;
+        }
+    }
+
+    //Método listar produtos por nome:
+    public Produtos buscaProdutoPorCodigo(int id) {
+        try {
+            String sql = "SELECT * FROM tb_produtos WHERE id = ?";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            Produtos obj = new Produtos();
+            Fornecedores f = new Fornecedores();
+
+            if (rs.next()) {
+                obj.setId(rs.getInt("id"));
+                obj.setDescricao(rs.getString("descricao"));
+                obj.setPreco(rs.getDouble("preco"));
+                obj.setQtdEstoque(rs.getInt("qtd_estoque"));
+            }
+            return obj;
             
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
