@@ -6,16 +6,12 @@
 package br.com.controle_estoque.view;
 
 import br.com.controle_estoque.dao.ClientesDAO;
-import br.com.controle_estoque.dao.FornecedoresDAO;
 import br.com.controle_estoque.dao.ProdutosDAO;
 import br.com.controle_estoque.model.Clientes;
-import br.com.controle_estoque.model.Fornecedores;
 import br.com.controle_estoque.model.Produtos;
-import br.com.controle_estoque.model.Utilitarios;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,37 +19,13 @@ import javax.swing.table.DefaultTableModel;
  * @author Tony
  */
 public class FrmVendas extends javax.swing.JFrame {
-
-    //Método listar na tabela:
-    public void listarTabela() {
-
-        ProdutosDAO dao = new ProdutosDAO();
-        List<Produtos> lista = dao.listarProdutos();
-
-        DefaultTableModel dados = (DefaultTableModel) tabelaProdutos.getModel();
-
-        //Limpa os dados da tabela para garantir que esteja vazia antes de ser preenchida;
-        dados.setNumRows(0);
-
-        //Devemos implementar um for para percorrer a lista de produtos que 
-        //recebemos de dao.listarProdutos(); adicionando uma linha no DefaultTableModel
-        //para cada um dos Objects recebidos: dados.addRow(new Object[]).
-        //A sequência que colocamos os métodos gets abaixo será a sequência em que os dados
-        //serão apresentados na tabela:
-        for (Produtos p : lista) {
-            dados.addRow(new Object[]{
-                p.getId(),
-                p.getDescricao(),
-                p.getPreco(),
-                p.getQtdEstoque(),
-                p.getFornecedor().getNome()
-            });
-        }
-    }
-
-    /**
-     * Creates new form Frmcliente
-     */
+    
+    double total, preco, subtotal;
+    int qtde;
+    
+    DefaultTableModel carrinho;
+    
+    
     public FrmVendas() {
         initComponents();
     }
@@ -304,6 +276,11 @@ public class FrmVendas extends javax.swing.JFrame {
         });
 
         btAdicionarItem.setText("Adicionar item");
+        btAdicionarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAdicionarItemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -473,35 +450,11 @@ public class FrmVendas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPagamentoActionPerformed
-        // Botão editar:
-        Produtos obj = new Produtos();
-        obj.setId(Integer.parseInt(txtCodigo.getText()));
-        obj.setDescricao(txtDescricao.getText());
-        obj.setPreco(Double.parseDouble(txtPreco.getText()));
-        obj.setQtdEstoque(Integer.parseInt(txtQtdEstoque.getText()));
 
-        //Cria um objeto do tipo Fornecedor:
-        Fornecedores f = new Fornecedores();
-        f = (Fornecedores) cbFornecedor.getSelectedItem();
-        obj.setFornecedor(f);
-
-        ProdutosDAO dao = new ProdutosDAO();
-
-        dao.alterarProduto(obj);
-
-        new Utilitarios().limpaTela(painel_dados);
     }//GEN-LAST:event_btPagamentoActionPerformed
 
     private void btCancelarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarVendaActionPerformed
-        // Botão excluir:
-        Produtos obj = new Produtos();
 
-        obj.setId(Integer.parseInt(txtCodigo.getText()));
-
-        ProdutosDAO dao = new ProdutosDAO();
-
-        dao.excluirProduto(obj);
-        new Utilitarios().limpaTela(painel_dados);
     }//GEN-LAST:event_btCancelarVendaActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -570,7 +523,6 @@ public class FrmVendas extends javax.swing.JFrame {
             } catch (Exception e) {
 
                 System.out.println(e);
-
             }
         }
     }//GEN-LAST:event_txtCpfKeyPressed
@@ -591,12 +543,29 @@ public class FrmVendas extends javax.swing.JFrame {
             } catch (Exception e) {
 
                 System.out.println(e);
-
             }
-        }
-        
-        
+        }       
     }//GEN-LAST:event_txtCodProdutoKeyPressed
+
+    private void btAdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarItemActionPerformed
+        
+        qtde = Integer.parseInt(txtQtdeProduto.getText());
+        preco = Double.parseDouble(txtPrecoProduto.getText());
+        subtotal = qtde * preco;
+        
+        total += subtotal;
+        txtTotal.setText(String.valueOf(total));
+        
+        //Adiciona os itens da compra à tabela de carrinho de compras:
+        carrinho = (DefaultTableModel) tabelaItens.getModel();
+        carrinho.addRow(new Object[]{
+            txtCodProduto.getText(),
+            txtNomeProduto.getText(),
+            txtQtdeProduto.getText(),
+            txtPrecoProduto.getText(),
+            subtotal
+        });     
+    }//GEN-LAST:event_btAdicionarItemActionPerformed
 
     /**
      * @param args the command line arguments
