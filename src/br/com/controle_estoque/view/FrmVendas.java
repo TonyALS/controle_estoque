@@ -10,8 +10,12 @@ import br.com.controle_estoque.dao.ProdutosDAO;
 import br.com.controle_estoque.model.Clientes;
 import br.com.controle_estoque.model.Produtos;
 import java.awt.event.KeyEvent;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,6 +26,9 @@ public class FrmVendas extends javax.swing.JFrame {
     
     double total, preco, subtotal;
     int qtde;
+    DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+    DecimalFormat formato = new DecimalFormat("##.##", symbols);
+    //formato.setRoundingMode(RoundingMode.DOWN);
     
     DefaultTableModel carrinho;
     
@@ -450,7 +457,16 @@ public class FrmVendas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPagamentoActionPerformed
-
+        
+        //Instanciamos a tela de pagamento quando o usuário clicar no botão
+        //"Pagamento":
+        FrmPagamento telaPagamento = new FrmPagamento();
+        formato.setRoundingMode(RoundingMode.DOWN);
+        telaPagamento.txtTotal.setText(String.valueOf(formato.format(total)));
+        telaPagamento.setVisible(true);
+        
+        //O dispose irá esconder a tela de vendas assim que chamar a tela de pagamento:
+        this.dispose();
     }//GEN-LAST:event_btPagamentoActionPerformed
 
     private void btCancelarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarVendaActionPerformed
@@ -548,13 +564,17 @@ public class FrmVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodProdutoKeyPressed
 
     private void btAdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarItemActionPerformed
-        
+
         qtde = Integer.parseInt(txtQtdeProduto.getText());
         preco = Double.parseDouble(txtPrecoProduto.getText());
         subtotal = qtde * preco;
         
         total += subtotal;
-        txtTotal.setText(String.valueOf(total));
+        
+        //total = Double.valueOf(formato.format(total));
+        
+        
+        txtTotal.setText(String.valueOf(formato.format(total)));
         
         //Adiciona os itens da compra à tabela de carrinho de compras:
         carrinho = (DefaultTableModel) tabelaItens.getModel();
@@ -563,7 +583,7 @@ public class FrmVendas extends javax.swing.JFrame {
             txtNomeProduto.getText(),
             txtQtdeProduto.getText(),
             txtPrecoProduto.getText(),
-            subtotal
+            String.valueOf(formato.format(subtotal))
         });     
     }//GEN-LAST:event_btAdicionarItemActionPerformed
 
