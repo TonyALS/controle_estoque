@@ -5,15 +5,20 @@
  */
 package br.com.controle_estoque.view;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 /**
  *
  * @author Tony
  */
 public class FrmPagamento extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmPagamento
-     */
+     //Define o formato dos números como 2 cadas decimais separados por ponto;
+    DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+    DecimalFormat formato = new DecimalFormat("##.##", symbols);
+    
     public FrmPagamento() {
         initComponents();
         
@@ -235,7 +240,7 @@ public class FrmPagamento extends javax.swing.JFrame {
         
         //Calcular o troco:
         troco = totalPago - totalVenda;
-        txtTroco.setText(String.valueOf(troco));      
+        txtTroco.setText(String.valueOf(formato.format(troco)));      
     }//GEN-LAST:event_btFinalizarVendaActionPerformed
 
     /**

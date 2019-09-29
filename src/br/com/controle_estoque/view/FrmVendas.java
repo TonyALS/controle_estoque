@@ -26,9 +26,10 @@ public class FrmVendas extends javax.swing.JFrame {
     
     double total, preco, subtotal;
     int qtde;
+    
+    //Define o formato dos números como 2 cadas decimais separados por ponto;
     DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
     DecimalFormat formato = new DecimalFormat("##.##", symbols);
-    //formato.setRoundingMode(RoundingMode.DOWN);
     
     DefaultTableModel carrinho;
     

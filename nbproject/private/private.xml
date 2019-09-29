@@ -3,8 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/view/FrmPagamento.java</file>
+            <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/dao/ProdutosDAO.java</file>
             <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/view/FrmVendas.java</file>
-            <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/view/FrmCliente.java</file>
+            <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/model/Utilitarios.java</file>
+            <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/model/Vendas.java</file>
+            <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/dao/ClientesDAO.java</file>
+            <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/dao/FuncionariosDAO.java</file>
+            <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/dao/FornecedoresDAO.java</file>
+            <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/view/FrmProduto.java</file>
         </group>
     </open-files>
 </project-private>
