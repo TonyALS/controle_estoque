@@ -31,6 +31,9 @@ public class FrmVendas extends javax.swing.JFrame {
     DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
     DecimalFormat formato = new DecimalFormat("##.##", symbols);
     
+    ClientesDAO dao = new ClientesDAO();
+    Clientes obj = new Clientes();
+    
     DefaultTableModel carrinho;
     
     
@@ -462,10 +465,11 @@ public class FrmVendas extends javax.swing.JFrame {
         //Instanciamos a tela de pagamento quando o usuário clicar no botão
         //"Pagamento":
         FrmPagamento telaPagamento = new FrmPagamento();
-        formato.setRoundingMode(RoundingMode.DOWN);
+        //formato.setRoundingMode(RoundingMode.DOWN);
         telaPagamento.txtTotal.setText(String.valueOf(formato.format(total)));
+        telaPagamento.cliente = obj;
         telaPagamento.setVisible(true);
-        
+  
         //O dispose irá esconder a tela de vendas assim que chamar a tela de pagamento:
         this.dispose();
     }//GEN-LAST:event_btPagamentoActionPerformed
@@ -531,9 +535,6 @@ public class FrmVendas extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
                 String cpf = txtCpf.getText();
-                ClientesDAO dao = new ClientesDAO();
-                Clientes obj = new Clientes();
-
                 obj = dao.buscaClientePorCPF(cpf);
                 txtNomeCliente.setText(obj.getNome());
 

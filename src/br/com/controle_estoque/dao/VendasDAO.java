@@ -56,7 +56,7 @@ public class VendasDAO {
     public int retornaUltimaVenda(){
         try {
             int idVenda = 0;
-            String sql = "SELECT MAX(id) FROM tb_vendas";
+            String sql = "SELECT MAX(id) id FROM tb_vendas";
             PreparedStatement stmt = con.prepareStatement(sql);
             
             ResultSet rs = stmt.executeQuery();
@@ -68,11 +68,9 @@ public class VendasDAO {
                 idVenda = p.getId();
             }
             return idVenda;
-            
-            
+    
         } catch (Exception e) {
-            throw new RuntimeException(e);
-            
+            throw new RuntimeException(e); 
         } 
     }  
 }

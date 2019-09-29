@@ -1,0 +1,18 @@
+Regras de negócio para realizar uma venda:
+1º Usuário seleciona os produtos;
+
+2º Salvar a venda:
+    -> Id do Cliente (Cliente ID);
+    -> Data da venda;
+    -> Total da venda;
+    -> Observações da venda.
+
+3º Retorna id da venda efetuada;
+
+4º Cadastrar TODOS os itens do carrinho em tb_itensvenda;
+
+5º Finalizar a venda.
+    Pega da data da venda:
+        Date agora = new Date();
+        SimpleDateFormat dataBr = new SimpleDateFormat("yyyy-MM-dd");
+        String datamysql = dataBr.format(agora);
