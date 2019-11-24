@@ -5,14 +5,18 @@
  */
 package br.com.controle_estoque.view;
 
+import br.com.controle_estoque.dao.ItemVendaDAO;
 import br.com.controle_estoque.dao.VendasDAO;
 import br.com.controle_estoque.model.Clientes;
+import br.com.controle_estoque.model.ItemVenda;
+import br.com.controle_estoque.model.Produtos;
 import br.com.controle_estoque.model.Vendas;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -313,7 +317,23 @@ public class FrmPagamento extends javax.swing.JFrame {
         //Retornar o id da última venda:
         objVendas.setId(vendasDao.retornaUltimaVenda());
         
+        //Cadastrando produtos na tabela itemvendas:
+        for(int i = 0; i < carrinho.getRowCount(); i++){
+            Produtos objProduto = new Produtos();
+            ItemVenda item = new ItemVenda();
+            item.setVenda(objVendas);
+            objProduto.setId(Integer.parseInt(carrinho.getValueAt(i, 0).toString()));
+            item.setProduto(objProduto);
+            item.setQtd(Integer.parseInt(carrinho.getValueAt(i, 2).toString()));
+            item.setSubtotal(Double.parseDouble(carrinho.getValueAt(i, 4).toString()));
+            
+            ItemVendaDAO daoItem = new ItemVendaDAO();
+            daoItem.cadastraItem(item);
+        }
         
+        /************************************************/
+        
+        JOptionPane.showMessageDialog(null, "Venda registrada com sucesso!");
     }//GEN-LAST:event_btFinalizarVendaActionPerformed
 
     /**
