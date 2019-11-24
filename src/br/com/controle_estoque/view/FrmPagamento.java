@@ -6,6 +6,7 @@
 package br.com.controle_estoque.view;
 
 import br.com.controle_estoque.dao.ItemVendaDAO;
+import br.com.controle_estoque.dao.ProdutosDAO;
 import br.com.controle_estoque.dao.VendasDAO;
 import br.com.controle_estoque.model.Clientes;
 import br.com.controle_estoque.model.ItemVenda;
@@ -319,6 +320,8 @@ public class FrmPagamento extends javax.swing.JFrame {
         
         //Cadastrando produtos na tabela itemvendas:
         for(int i = 0; i < carrinho.getRowCount(); i++){
+            int qtd_estoque, qtd_comprada, qtd_atualizada;
+            ProdutosDAO produtoDAO = new ProdutosDAO();
             Produtos objProduto = new Produtos();
             ItemVenda item = new ItemVenda();
             item.setVenda(objVendas);
@@ -326,6 +329,12 @@ public class FrmPagamento extends javax.swing.JFrame {
             item.setProduto(objProduto);
             item.setQtd(Integer.parseInt(carrinho.getValueAt(i, 2).toString()));
             item.setSubtotal(Double.parseDouble(carrinho.getValueAt(i, 4).toString()));
+            
+            //Baixa no estoque:
+            qtd_estoque = produtoDAO.retornaEstoqueAtual(objProduto.getId());
+            qtd_comprada = Integer.parseInt(carrinho.getValueAt(i, 2).toString());
+            qtd_atualizada = qtd_estoque - qtd_comprada;
+            produtoDAO.baixaEstoque(objProduto.getId(), qtd_atualizada);
             
             ItemVendaDAO daoItem = new ItemVendaDAO();
             daoItem.cadastraItem(item);
