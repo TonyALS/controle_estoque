@@ -27,7 +27,7 @@ public class FrmVendas extends javax.swing.JFrame {
     double total, preco, subtotal;
     int qtde;
     
-    //Define o formato dos números como 2 cadas decimais separados por ponto;
+    //Define o formato dos números como 2 casas decimais separados por ponto;
     DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
     DecimalFormat formato = new DecimalFormat("##.##", symbols);
     
@@ -468,6 +468,8 @@ public class FrmVendas extends javax.swing.JFrame {
         //formato.setRoundingMode(RoundingMode.DOWN);
         telaPagamento.txtTotal.setText(String.valueOf(formato.format(total)));
         telaPagamento.cliente = obj;
+        telaPagamento.cliente_id = obj.getId();
+        telaPagamento.carrinho = carrinho;
         telaPagamento.setVisible(true);
   
         //O dispose irá esconder a tela de vendas assim que chamar a tela de pagamento:

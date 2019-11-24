@@ -13,6 +13,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,11 +21,15 @@ import java.util.Locale;
  */
 public class FrmPagamento extends javax.swing.JFrame {
 
-    //Define o formato dos números como 2 cadas decimais separados por ponto;
+    //Define o formato dos números como 2 casas decimais separados por ponto;
     DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
     DecimalFormat formato = new DecimalFormat("##.##", symbols);
     
     Clientes cliente = new Clientes();
+    
+    DefaultTableModel carrinho;
+    
+    int cliente_id;
     
     public FrmPagamento() {
         initComponents();
@@ -304,6 +309,11 @@ public class FrmPagamento extends javax.swing.JFrame {
         
         VendasDAO vendasDao = new VendasDAO();
         vendasDao.cadastrarVenda(objVendas);
+        
+        //Retornar o id da última venda:
+        objVendas.setId(vendasDao.retornaUltimaVenda());
+        
+        
     }//GEN-LAST:event_btFinalizarVendaActionPerformed
 
     /**
