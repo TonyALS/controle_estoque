@@ -7,9 +7,13 @@ package br.com.controle_estoque.dao;
 
 import br.com.controle_estoque.jdbc.ConnectionFactory;
 import br.com.controle_estoque.model.ItemVenda;
+import br.com.controle_estoque.model.Produtos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,7 +31,6 @@ public class ItemVendaDAO {
     }
     
     //Método que cadastra itens:
-    
     public void cadastraItem(ItemVenda obj){
         try {
 
@@ -49,4 +52,42 @@ public class ItemVendaDAO {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
         }
     } 
+    
+    //Listar itens vendidos por cada id de venda:
+    public List<ItemVenda> listaItensPorVenda(int vendaId) {
+        try {
+            //1º Passo: Criar a lista:
+            List<ItemVenda> lista = new ArrayList<>();
+
+            //2º Passo: Criar o SQL que fará a seleção no BD:
+            String sql = "SELECT i.id, p.descricao, i.qtd, p.preco, i.subtotal"
+                    + " FROM tb_itensvendas AS i INNER JOIN tb_produtos AS p"
+                    + " ON(i.produto_id = p.id) WHERE i.venda_id = ?";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, vendaId);
+   
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                ItemVenda item = new ItemVenda();
+                Produtos prod = new Produtos();
+                
+                item.setId(rs.getInt("i.id"));
+                prod.setDescricao(rs.getString("p.descricao"));
+                item.setQtd(rs.getInt("i.qtd"));
+                prod.setPreco(rs.getDouble("p.preco"));
+                item.setSubtotal(rs.getDouble("i.subtotal"));
+                
+                item.setProduto(prod);
+               
+                lista.add(item);
+            }
+            return lista;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro: " + e);
+            return null;
+        }
+    }
 }

@@ -5,7 +5,9 @@
  */
 package br.com.controle_estoque.view;
 
+import br.com.controle_estoque.dao.ItemVendaDAO;
 import br.com.controle_estoque.dao.VendasDAO;
+import br.com.controle_estoque.model.ItemVenda;
 import br.com.controle_estoque.model.Vendas;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -244,6 +246,29 @@ public class FrmHistorico extends javax.swing.JFrame {
         tela.txtDataVenda.setText(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 1).toString());
         tela.txtTotalVenda.setText(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 3).toString());
         tela.txtObsVenda.setText(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 4).toString());
+        
+        int vendaId = Integer.parseInt(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 0).toString());
+        
+        //Dados dos itens comprados:
+        ItemVenda item = new ItemVenda();
+        ItemVendaDAO dao_item = new ItemVendaDAO();
+        
+        List<ItemVenda> listaItens = dao_item.listaItensPorVenda(vendaId);
+        
+        DefaultTableModel dados = (DefaultTableModel) tela.tabelaItensVendidos.getModel();
+        //Limpa os dados da tabela para garantir que esteja vazia antes de ser preenchida;
+        dados.setNumRows(0);
+        
+        for (ItemVenda i : listaItens) {
+            dados.addRow(new Object[]{
+                i.getId(),
+                i.getProduto().getDescricao(),
+                i.getQtd(),
+                i.getProduto().getPreco(),
+                i.getSubtotal()
+            });
+        }
+        
         tela.setVisible(true);
     }//GEN-LAST:event_tabelaHistoricoMouseClicked
 

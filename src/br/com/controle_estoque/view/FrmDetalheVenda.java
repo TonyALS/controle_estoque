@@ -274,7 +274,7 @@ public class FrmDetalheVenda extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tabelaItensVendidos;
+    public javax.swing.JTable tabelaItensVendidos;
     public javax.swing.JTextField txtDataVenda;
     public javax.swing.JTextField txtNomeCliente;
     public javax.swing.JTextArea txtObsVenda;
