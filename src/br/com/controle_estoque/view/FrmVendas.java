@@ -10,7 +10,6 @@ import br.com.controle_estoque.dao.ProdutosDAO;
 import br.com.controle_estoque.model.Clientes;
 import br.com.controle_estoque.model.Produtos;
 import java.awt.event.KeyEvent;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -466,7 +465,6 @@ public class FrmVendas extends javax.swing.JFrame {
         //Instanciamos a tela de pagamento quando o usuário clicar no botão
         //"Pagamento":
         FrmPagamento telaPagamento = new FrmPagamento();
-        //formato.setRoundingMode(RoundingMode.DOWN);
         telaPagamento.txtTotal.setText(String.valueOf(formato.format(total)));
         telaPagamento.cliente = obj;
         telaPagamento.cliente_id = obj.getId();

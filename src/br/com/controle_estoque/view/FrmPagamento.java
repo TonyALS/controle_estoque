@@ -297,10 +297,7 @@ public class FrmPagamento extends javax.swing.JFrame {
         txtTroco.setText(String.valueOf(formato.format(troco))); 
         
         Vendas objVendas = new Vendas();
-        
-        //Dados do cliente:
-        objVendas.setCliente(cliente);
-        
+
         //Pega da data da venda:
         Date agora = new Date();
         SimpleDateFormat dataEUA = new SimpleDateFormat("yyyy-MM-dd");
@@ -311,6 +308,8 @@ public class FrmPagamento extends javax.swing.JFrame {
         objVendas.setTotal_venda(totalVenda);
         //Observações da venda:
         objVendas.setObs(txtObs.getText());
+        //Dados do cliente:
+        objVendas.setCliente(cliente);
         
         VendasDAO vendasDao = new VendasDAO();
         vendasDao.cadastrarVenda(objVendas);
