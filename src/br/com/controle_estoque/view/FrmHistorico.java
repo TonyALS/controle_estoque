@@ -5,6 +5,14 @@
  */
 package br.com.controle_estoque.view;
 
+import br.com.controle_estoque.dao.VendasDAO;
+import br.com.controle_estoque.model.Vendas;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Tony
@@ -191,7 +199,7 @@ public class FrmHistorico extends javax.swing.JFrame {
 
     private void txtDataInicioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataInicioKeyPressed
 
-       
+
     }//GEN-LAST:event_txtDataInicioKeyPressed
 
     private void txtDataFimKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataFimKeyPressed
@@ -199,9 +207,28 @@ public class FrmHistorico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDataFimKeyPressed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        //Botão pesquisar:
+        try {
+            //Receber as datas de pesquisa:
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate dataInicio = LocalDate.parse(txtDataInicio.getText(), formato);
+            LocalDate dataFim = LocalDate.parse(txtDataFim.getText(), formato);
 
-        
+            VendasDAO dao = new VendasDAO();
+            List<Vendas> lista = dao.listarVendasPorPeriodo(dataInicio, dataFim);
+
+            DefaultTableModel dados = (DefaultTableModel) tabelaHistorico.getModel();
+            for (Vendas v : lista) {
+                dados.addRow(new Object[]{
+                    v.getId(),
+                    v.getData_venda(),
+                    v.getCliente().getNome(),
+                    "R$ " + v.getTotal_venda(),
+                    v.getObs()
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Digite datas válidas.");
+        }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**
