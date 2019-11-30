@@ -40,6 +40,7 @@ public class FrmLogin extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Login no sistema");
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -93,6 +94,11 @@ public class FrmLogin extends javax.swing.JFrame {
 
         btnSair.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSairMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,6 +177,15 @@ public class FrmLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Dados incorretos.");
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void btnSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseClicked
+        //Sair do sistema:
+        int op;
+        op = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do sistema?");
+        if(op == 0){
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnSairMouseClicked
 
     /**
      * @param args the command line arguments

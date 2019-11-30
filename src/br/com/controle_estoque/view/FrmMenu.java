@@ -130,6 +130,11 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenu2.setText("Funcionários");
 
         jMenuItem2.setText("Controle de Funcionários");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
@@ -138,6 +143,11 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenu3.setText("Fornecedores");
 
         jMenuItem3.setText("Controle de Fornecedores");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem3);
 
         jMenuBar1.add(jMenu3);
@@ -149,6 +159,11 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenu6.add(jMenuItem4);
 
         jMenuItem5.setText("Consulta Produtos");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem5);
 
         jMenuBar1.add(jMenu6);
@@ -157,12 +172,22 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenu4.setText("Vendas");
 
         jMenuItem6.setText("Abrir PDV");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem6);
 
         menu_posicao.setText("Posição do dia");
         jMenu4.add(menu_posicao);
 
         menu_controlevendas.setText("Histórico de vendas");
+        menu_controlevendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_controlevendasActionPerformed(evt);
+            }
+        });
         jMenu4.add(menu_controlevendas);
 
         jMenuBar1.add(jMenu4);
@@ -206,7 +231,8 @@ public class FrmMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        FrmCliente tela = new FrmCliente();
+        tela.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -231,6 +257,32 @@ public class FrmMenu extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_jMenu8MouseClicked
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        FrmProduto tela = new FrmProduto();
+        tela.jTabbedPane1.setSelectedIndex(1);
+        tela.setVisible(true);   
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        FrmFuncionarios tela = new FrmFuncionarios();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        FrmFornecedores tela = new FrmFornecedores();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        FrmVendas tela = new FrmVendas();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void menu_controlevendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_controlevendasActionPerformed
+        FrmHistorico tela = new FrmHistorico();
+        tela.setVisible(true);
+    }//GEN-LAST:event_menu_controlevendasActionPerformed
 
     /**
      * @param args the command line arguments
