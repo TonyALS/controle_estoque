@@ -4,8 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/view/FrmPagamento.java</file>
+            <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/dao/ProdutosDAO.java</file>
+            <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/dao/ItemVendaDAO.java</file>
+            <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/model/ItemVenda.java</file>
             <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/view/FrmVendas.java</file>
-            <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/regras%20de%20negócio%20da%20venda</file>
+            <file>file:/C:/Java%20Swing%20-%20Controle%20de%20estoque/Controle%20de%20estoque/src/br/com/controle_estoque/dao/VendasDAO.java</file>
         </group>
     </open-files>
 </project-private>
