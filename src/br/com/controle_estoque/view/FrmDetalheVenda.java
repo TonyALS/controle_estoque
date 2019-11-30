@@ -149,7 +149,7 @@ public class FrmDetalheVenda extends javax.swing.JFrame {
                                 .addGap(30, 30, 30)
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -275,9 +275,9 @@ public class FrmDetalheVenda extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tabelaItensVendidos;
-    private javax.swing.JTextField txtDataVenda;
-    private javax.swing.JTextField txtNomeCliente;
-    private javax.swing.JTextArea txtObsVenda;
-    private javax.swing.JTextField txtTotalVenda;
+    public javax.swing.JTextField txtDataVenda;
+    public javax.swing.JTextField txtNomeCliente;
+    public javax.swing.JTextArea txtObsVenda;
+    public javax.swing.JTextField txtTotalVenda;
     // End of variables declaration//GEN-END:variables
 }

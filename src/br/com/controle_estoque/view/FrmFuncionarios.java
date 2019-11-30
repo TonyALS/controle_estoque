@@ -5,9 +5,7 @@
  */
 package br.com.controle_estoque.view;
 
-import br.com.controle_estoque.dao.ClientesDAO;
 import br.com.controle_estoque.dao.FuncionariosDAO;
-import br.com.controle_estoque.model.Clientes;
 import br.com.controle_estoque.model.Funcionarios;
 import br.com.controle_estoque.model.Utilitarios;
 import java.awt.event.KeyEvent;
@@ -186,6 +184,11 @@ public class FrmFuncionarios extends javax.swing.JFrame {
 
         txtNome.setBackground(new java.awt.Color(255, 255, 255));
         txtNome.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtNome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNomeMouseClicked(evt);
+            }
+        });
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeActionPerformed(evt);
@@ -918,6 +921,10 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     private void txtCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCargoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCargoActionPerformed
+
+    private void txtNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNomeMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeMouseClicked
 
     /**
      * @param args the command line arguments
