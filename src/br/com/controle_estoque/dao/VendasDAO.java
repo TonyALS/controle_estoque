@@ -117,4 +117,25 @@ public class VendasDAO {
             return null;
         }
     }
+    
+    //Método que calcula o valor das vendas para uma data
+    public double retornaTotalVendaPorData(LocalDate dataVenda){
+        try {
+            
+            double totalVenda = 0;
+            String sql = "SELECT SUM(total_venda) AS total FROM tb_vendas"
+                    + " WHERE data_venda = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, dataVenda.toString());
+            ResultSet rs = stmt.executeQuery();
+            
+            if(rs.next()){
+                totalVenda = rs.getDouble("total");
+            }
+            return totalVenda;
+    
+        } catch (Exception e) {
+            throw new RuntimeException(e); 
+        } 
+    }
 }

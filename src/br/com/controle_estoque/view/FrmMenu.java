@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author Tony
  */
 public class FrmMenu extends javax.swing.JFrame {
-    
+
     public String usuarioLogado;
 
     /**
@@ -185,6 +185,11 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenu4.add(jMenuItem6);
 
         menu_posicao.setText("Posição do dia");
+        menu_posicao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_posicaoActionPerformed(evt);
+            }
+        });
         jMenu4.add(menu_posicao);
 
         menu_controlevendas.setText("Histórico de vendas");
@@ -258,7 +263,7 @@ public class FrmMenu extends javax.swing.JFrame {
         //Sair do sistema:
         int op;
         op = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do sistema?");
-        if(op == 0){
+        if (op == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_jMenu8MouseClicked
@@ -266,7 +271,7 @@ public class FrmMenu extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         FrmProduto tela = new FrmProduto();
         tela.jTabbedPane1.setSelectedIndex(1);
-        tela.setVisible(true);   
+        tela.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -293,6 +298,11 @@ public class FrmMenu extends javax.swing.JFrame {
         FrmEstoque tela = new FrmEstoque();
         tela.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void menu_posicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_posicaoActionPerformed
+        FrmTotalVenda tela = new FrmTotalVenda();
+        tela.setVisible(true);
+    }//GEN-LAST:event_menu_posicaoActionPerformed
 
     /**
      * @param args the command line arguments
